@@ -13,21 +13,18 @@ import java.util.*
  */
 class ExampleUnitTest {
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
-    }
-
-    @Test
     fun test_instance() {
         val user2 = User("2", "John", "Cena")
+        assertEquals("2", user2.id)
+        assertEquals("John", user2.firstName)
+        assertEquals("Cena", user2.lastName)
     }
 
     @Test
     fun test_factory() {
         val user = User.makeUser("John Wick")
-        val user2 = user.copy(User.takeNextId(),lastName = "Cina", lastVisit = Date())
-
-        print("$user \n$user2")
+        assertEquals("John", user.firstName)
+        assertEquals("Wick", user.lastName)
     }
 
     @Test
@@ -36,7 +33,18 @@ class ExampleUnitTest {
 
         val (id, firstName, lastName) = user
 
-        println("$id, $firstName, $lastName")
-        println("${user.component1()}, ${user.component2()}, ${user.component3()}")
+        assertEquals("0", id)
+        assertEquals("John", firstName)
+        assertEquals("Wick", lastName)
+    }
+
+    @Test
+    fun test_copy(){
+        val user = User.makeUser("John Wick")
+        val user2 = user.copy()
+
+        assertEquals(user, user2)
+        assertEquals(user.hashCode(), user2.hashCode())
+        assertNotEquals(System.identityHashCode(user), System.identityHashCode(user2))
     }
 }
