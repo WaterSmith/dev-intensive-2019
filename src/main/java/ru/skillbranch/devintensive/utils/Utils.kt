@@ -7,4 +7,16 @@ object Utils {
         val lastName = if (parts?.getOrNull(1)?.length?:0 == 0) null else parts?.getOrNull(1)
         return firstName to lastName
     }
+
+    fun transliteration(payload: String, divider:String = " "): String {
+        //TODO()
+        return "not implemented"
+    }
+
+    fun toInitials(firstName: String?, lastName: String?): String? {
+        //TODO()
+        return "not implemented"
+    }
+
+
 }
