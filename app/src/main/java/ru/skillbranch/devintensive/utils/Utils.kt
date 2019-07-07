@@ -14,8 +14,10 @@ object Utils {
     }
 
     fun toInitials(firstName: String?, lastName: String?): String? {
-        //TODO()
-        return "not implemented"
+        val first = if (firstName?.trim()?.length?:0==0) null else firstName?.trim()?.substring(0,1)
+        val last = if (lastName?.trim()?.length?:0==0) null else lastName?.trim()?.substring(0,1)
+        val result = ((first?:"")+(last?:"")).trim().toUpperCase()
+        return if (result.length==0) null else result
     }
 
 
