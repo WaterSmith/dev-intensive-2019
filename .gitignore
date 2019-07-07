@@ -16,7 +16,6 @@ gradle.properties
 gradlew.bat
 
 app/libs
-app/src/test/
 app/src/androidTest/
 
 # Signing files
