@@ -1,7 +1,7 @@
 package ru.skillbranch.devintensive.utils
 
 object Utils {
-    val charMap = mapOf<Char, String>(
+    val charMap = mapOf(
         'а' to "a", 'б' to "b", 'в' to "v", 'г' to "g", 'д' to "d", 'е' to "e", 'ё' to "e",
         'ж' to "zh", 'з' to "z", 'и' to "i", 'й' to "i", 'к' to "k", 'л' to "l", 'м' to "m",
         'н' to "n", 'о' to "o", 'п' to "p", 'р' to "r", 'с' to "s", 'т' to "t", 'у' to "u",
@@ -10,7 +10,7 @@ object Utils {
     )
 
     fun parseFullName(fullName: String?): Pair<String?,String?>{
-        val parts = fullName?.split(" ")
+        val parts = fullName?.trim()?.split(" ")
         val firstName = if (parts?.getOrNull(0)?.length?:0 == 0) null else parts?.getOrNull(0)
         val lastName = if (parts?.getOrNull(1)?.length?:0 == 0) null else parts?.getOrNull(1)
         return firstName to lastName
@@ -24,8 +24,8 @@ object Utils {
             var key = char.toLowerCase()
             var simbol = if (char.isWhitespace()) divider else charMap.getOrDefault(key,char.toString())
             if (isUppercase) {
-                result += if (simbol.length == 1) (simbol.toUpperCase())
-                            else (simbol.get(0).toUpperCase().toString() + simbol.get(1).toString())
+                result += if (simbol.length in (0..1)) (simbol.toUpperCase())
+                            else (simbol.get(0).toUpperCase().toString() + simbol.drop(1).toString())
             } else {
                 result += simbol
             }

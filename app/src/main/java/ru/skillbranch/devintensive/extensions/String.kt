@@ -1,27 +1,13 @@
 package ru.skillbranch.devintensive.extensions
 
-fun String.truncate(newsize:Int=16):String {
-    var result:String = this.trim()
-    return if (result.length>newsize) result.substring(0, newsize).trim()+"..." else result
-}
+fun String.truncate(newsize:Int=16) =
+    if (this.trim().length>newsize)
+        this.trim().dropLast(this.trim().length-newsize).trim()+"..."
+    else this.trim()
 
-fun String.trimDubleWhitespace():String {
-    var result:String = this
-    while (result.indexOf("  ")>-1) {
-        result = result.replace("  "," ")
-    }
-    return result
-}
+fun String.trimDoubleWhitespace() = this.replace(" {2,}".toRegex(), " ")
 
-fun String.stripHtml(): String {
-    var task = this
-    var result = ""
-    while ((task.indexOf("<")>-1) && (task.indexOf(">")>-1) && task.indexOf("<")<task.indexOf(">")){
-        result = result + task.substringBefore("<")
-        task = task.substringAfter(">")
-    }
-    result = result + task
-
-    return result.trim().trimDubleWhitespace()
-}
-
+fun String.stripHtml() = this
+    .replace("<[^>]+>".toRegex(), "")
+    .replace("&[a-z;#\\d]+;".toRegex(), "")
+    .trimDoubleWhitespace()
