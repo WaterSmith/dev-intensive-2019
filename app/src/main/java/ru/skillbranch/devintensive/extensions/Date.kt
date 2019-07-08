@@ -33,9 +33,7 @@ fun Date.humanizeDiff(now:Date = Date()): String {
     }
 }
 
-operator fun Date.minus(anoterDate:Date):Long {
-    return this.time - anoterDate.time
-}
+operator fun Date.minus(anoterDate:Date):Long = this.time - anoterDate.time
 
 operator fun Date.plusAssign(interval: Long) {
     this.time += interval
@@ -46,7 +44,7 @@ operator fun Date.minusAssign(interval: Long) {
 }
 
 fun Date.add(value:Long, units: TimeUnits):Date {
-    this.time += units * value
+    this += units * value
     return this
 }
 
@@ -95,7 +93,7 @@ enum class TimeUnits {
     }
 
     private fun pluralForm(value:Long):Int {
-        var absvalue = abs(value)
+        val absvalue = abs(value)
         return if (absvalue%10==1L && absvalue%100!=11L) 0
         else if (absvalue%10>=2L && absvalue%10<=4L && (absvalue%100<10L || absvalue%100>=20L)) 1
         else 2
