@@ -1,5 +1,6 @@
 package ru.skillbranch.devintensive
 
+import android.util.Log
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -214,7 +215,6 @@ class ExampleUnitTest {
             .isOnline(true)
             .lastVisit(now)
             .build()
-
         assertNotEquals("-1",user.id)
         assertEquals("Сергей",user.firstName)
         assertEquals("Водаков",user.lastName)
