@@ -15,21 +15,21 @@ class Bender(var status:Status = Status.NORMAL, var question:Question = Question
     }
 
     fun listenAnswer(answer:String): Pair<String,Triple<Int,Int,Int>>{
-        phrase = question.validationError
+        phrase = "${question.validationError}\n"
         if (question.validateAnswer(answer)) {
-            if (question.answers.contains(answer.toLowerCase())) {
-                phrase = "Отлично! Это правильный ответ!"
+            if (question.checkAnswer(answer)) {
+                phrase = if (question.ordinal==Question.values().lastIndex) "" else "Отлично - ты справился\n"
                 question = question.nextQuestion()
             } else {
-                phrase = "Это не правильный ответ!"
+                phrase = "Это неправильный ответ\n"
                 status = status.nextStatus()
                 if (status.ordinal==0) {
-                    phrase = "Это неправильный ответ. Давай все по новой"
+                    phrase = "Это неправильный ответ. Давай все по новой\n"
                     question = Question.NAME
                 }
             }
         }
-        return "$phrase\n${question.question}" to status.color
+        return "$phrase${question.question}" to status.color
     }
 
     enum class Status(val color:Triple<Int,Int,Int>){
@@ -56,7 +56,7 @@ class Bender(var status:Status = Status.NORMAL, var question:Question = Question
             override fun nextQuestion():Question = PROFESSION
             override fun validateAnswer(answer:String):Boolean = (answer.length > 0 && answer[0].isUpperCase())
         },
-        PROFESSION("Назови мою профессию!",
+        PROFESSION("Назови мою профессию?",
             listOf("сгибальщик", "bender"),
             "Профессия должна начинаться со строчной буквы"){
             override fun nextQuestion():Question = MATERIAL
@@ -80,14 +80,15 @@ class Bender(var status:Status = Status.NORMAL, var question:Question = Question
             override fun nextQuestion():Question = IDLE
             override fun validateAnswer(answer:String):Boolean = (answer.isDigitsOnly() && answer.length==7)
         },
-        IDLE("На этом всё. Вопросов больше нет.",
+        IDLE("На этом все, вопросов больше нет",
             listOf()){
             override fun nextQuestion():Question = IDLE
             override fun validateAnswer(answer:String):Boolean = true
+            override fun checkAnswer(answer:String):Boolean = true
         };
 
         abstract fun nextQuestion():Question
-
         abstract fun validateAnswer(answer:String):Boolean
+        open fun checkAnswer(answer:String):Boolean = this.answers.contains(answer.toLowerCase())
     }
 }
