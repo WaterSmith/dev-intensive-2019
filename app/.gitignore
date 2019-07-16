@@ -3,4 +3,3 @@ build/
 libs/
 .idea/
 *.iml
-src/androidTest
