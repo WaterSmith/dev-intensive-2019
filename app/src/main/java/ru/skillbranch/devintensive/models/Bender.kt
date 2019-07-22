@@ -18,7 +18,7 @@ class Bender(var status:Status = Status.NORMAL, var question:Question = Question
         phrase = "${question.validationError}\n"
         if (question.validateAnswer(answer)) {
             if (question.checkAnswer(answer)) {
-                phrase = if (question.ordinal==Question.values().lastIndex) "" else "Отлично - ты справился\n"
+                phrase =  if (question.ordinal==Question.values().lastIndex) "" else "Отлично - ты справился\n"
                 question = question.nextQuestion()
             } else {
                 phrase = "Это неправильный ответ\n"
