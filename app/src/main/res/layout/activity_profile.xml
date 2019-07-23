@@ -6,17 +6,63 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center"
         tools:context=".ui.profile.ProfileActivity">
 
         <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <ImageView
+                <ru.skillbranch.devintensive.ui.custom.AspectRatioImageView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:src="@drawable/profile_bg"
-                        android:scaleType="centerCrop"/>
+                        android:scaleType="centerCrop"
+                        app:aspectRatio="1.78"/>
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                        <ImageButton
+                                android:layout_width="@dimen/btn_round_size40"
+                                android:layout_height="@dimen/btn_round_size40"
+                                android:background="@drawable/btn_round_bg"
+                                android:src="@drawable/ic_switch_day_night"
+                                android:layout_toStartOf="@id/iv_avatar"
+                                android:layout_marginEnd="@dimen/spacing_huge_32"
+                                android:layout_marginTop="36dp"
+                        />
+                        <ImageView
+                                android:id="@+id/iv_avatar"
+                                android:layout_width="@dimen/avatar_round_size"
+                                android:layout_height="@dimen/avatar_round_size"
+                                android:src="@drawable/avatar_default"
+                                android:layout_centerHorizontal="true"/>
+                        <ImageButton
+                                android:layout_width="@dimen/btn_round_size40"
+                                android:layout_height="@dimen/btn_round_size40"
+                                android:background="@drawable/btn_round_bg"
+                                android:src="@drawable/ic_edit_black_24dp"
+                                android:layout_toEndOf="@id/iv_avatar"
+                                android:layout_marginStart="@dimen/spacing_huge_32"
+                                android:layout_marginTop="36dp"
+
+                        />
+                        <TextView
+                                android:id="@+id/tv_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/iv_avatar"
+                                android:layout_centerHorizontal="true"
+                                tools:text="John Doe"
+                                android:textColor="@android:color/white"
+                        />
+                        <TextView
+                                android:id="@+id/tv_rank"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/tv_name"
+                                android:layout_centerHorizontal="true"
+                                tools:text="Junior Android Developer"
+                                android:textColor="@android:color/white"
+                        />
+                </RelativeLayout>
         </FrameLayout>
 
 </LinearLayout>
