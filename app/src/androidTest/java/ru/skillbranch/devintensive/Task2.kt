@@ -10,12 +10,13 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import ru.skillbranch.devintensive.models.Bender
+import ru.skillbranch.devintensive.ui.profile.ProfileActivity
 
 @RunWith(AndroidJUnit4::class)
 class Task2 {
     @Rule
     @JvmField
-    val rule = ActivityTestRule(MainActivity::class.java)
+    val rule = ActivityTestRule(ProfileActivity::class.java)
 
     @Test
     fun listenAnswerPositiveTest1(){

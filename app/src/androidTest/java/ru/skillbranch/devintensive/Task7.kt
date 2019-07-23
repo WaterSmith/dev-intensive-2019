@@ -11,12 +11,13 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import ru.skillbranch.devintensive.extensions.isKeyboardClosed
 import ru.skillbranch.devintensive.extensions.isKeyboardOpen
+import ru.skillbranch.devintensive.ui.profile.ProfileActivity
 
 @RunWith(AndroidJUnit4::class)
 class Task7 {
     @Rule
     @JvmField
-    val rule = ActivityTestRule(MainActivity::class.java)
+    val rule = ActivityTestRule(ProfileActivity::class.java)
 
     @Test
     fun isKeyboardClosedTest(){
