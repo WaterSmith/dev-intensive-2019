@@ -50,4 +50,61 @@ class UtilsTest {
         assertEquals("Zhizha ZhiZhnaYa", Utils.transliteration("Жижа ЖиЖнаЯ"))
         assertEquals("Sobaka is a dog", Utils.transliteration("Собака dog", " is a "))
     }
+
+    @Test
+    fun checkGitHub_test(){
+        var url = "https://github.com/watersmith"
+        assertTrue(Utils.mathGitHubAccount(url))
+        url = "https://github.com/johnDoe"
+        assertTrue(Utils.mathGitHubAccount(url))
+        url = "https://www.github.com/johnDoe"
+        assertTrue(Utils.mathGitHubAccount(url))
+        url = "www.github.com/johnDoe"
+        assertTrue(Utils.mathGitHubAccount(url))
+        url = "github.com/johnDoe"
+        assertTrue(Utils.mathGitHubAccount(url))
+        url = "https://anyDomain.github.com/johnDoe"
+        assertFalse(Utils.mathGitHubAccount(url))
+        url = "https://github.com/"
+        assertFalse(Utils.mathGitHubAccount(url))
+        url = "https://github.com"
+        assertFalse(Utils.mathGitHubAccount(url))
+        url = "https://github.com/johnDoe/tree"
+        assertFalse(Utils.mathGitHubAccount(url))
+        url = "https://github.com/johnDoe/tree/something"
+        assertFalse(Utils.mathGitHubAccount(url))
+        url = "github.com/enterprise"
+        assertFalse(Utils.mathGitHubAccount(url))
+        url = "github.com/pricing"
+        assertFalse(Utils.mathGitHubAccount(url))
+        url = "github.com/join"
+        assertFalse(Utils.mathGitHubAccount(url))
+
+        url = "https://github.com/enterprise"
+        assertFalse(Utils.mathGitHubAccount(url))
+        url = "https://github.com/features"
+        assertFalse(Utils.mathGitHubAccount(url))
+        url = "https://github.com/topics"
+        assertFalse(Utils.mathGitHubAccount(url))
+        url = "https://github.com/collections"
+        assertFalse(Utils.mathGitHubAccount(url))
+        url = "https://github.com/trending"
+        assertFalse(Utils.mathGitHubAccount(url))
+        url = "https://github.com/events"
+        assertFalse(Utils.mathGitHubAccount(url))
+        url = "https://github.com/marketplace"
+        assertFalse(Utils.mathGitHubAccount(url))
+        url = "https://github.com/pricing"
+        assertFalse(Utils.mathGitHubAccount(url))
+        url = "https://github.com/nonprofit"
+        assertFalse(Utils.mathGitHubAccount(url))
+        url = "https://github.com/customer-stories"
+        assertFalse(Utils.mathGitHubAccount(url))
+        url = "https://github.com/security"
+        assertFalse(Utils.mathGitHubAccount(url))
+        url = "https://github.com/login"
+        assertFalse(Utils.mathGitHubAccount(url))
+        url = "https://github.com/join"
+        assertFalse(Utils.mathGitHubAccount(url))
+    }
 }

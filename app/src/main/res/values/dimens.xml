@@ -14,7 +14,6 @@
 
     <!--size elements-->
     <dimen name="btn_round_size_40">40dp</dimen>
-    <dimen name="avatar_round_size">112dp</dimen>
     <dimen name="space_maximum_72">72dp</dimen>
     <dimen name="btn_round_size40">40dp</dimen>
     <dimen name="avatar_round_size">112dp</dimen>
