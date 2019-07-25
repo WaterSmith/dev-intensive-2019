@@ -52,7 +52,7 @@ class UtilsTest {
     }
 
     @Test
-    fun checkGitHub_test(){
+    fun checkGitHub_test_positive_case() {
         var url = "https://github.com/watersmith"
         assertTrue(Utils.mathGitHubAccount(url))
         url = "https://github.com/johnDoe"
@@ -63,7 +63,17 @@ class UtilsTest {
         assertTrue(Utils.mathGitHubAccount(url))
         url = "github.com/johnDoe"
         assertTrue(Utils.mathGitHubAccount(url))
-        url = "https://anyDomain.github.com/johnDoe"
+    }
+
+    @Test
+    fun checkGitHub_test_case_unsensitive() {
+        var url = "HTTPS://www.GitHub.COM/JohnDoe"
+        assertTrue(Utils.mathGitHubAccount(url))
+    }
+
+    @Test
+    fun checkGitHub_test_negative_case() {
+        var url = "https://anyDomain.github.com/johnDoe"
         assertFalse(Utils.mathGitHubAccount(url))
         url = "https://github.com/"
         assertFalse(Utils.mathGitHubAccount(url))
@@ -79,8 +89,11 @@ class UtilsTest {
         assertFalse(Utils.mathGitHubAccount(url))
         url = "github.com/join"
         assertFalse(Utils.mathGitHubAccount(url))
+    }
 
-        url = "https://github.com/enterprise"
+    @Test
+    fun checkGitHub_test_reserved_worlds(){
+        var url = "https://github.com/enterprise"
         assertFalse(Utils.mathGitHubAccount(url))
         url = "https://github.com/features"
         assertFalse(Utils.mathGitHubAccount(url))
