@@ -205,7 +205,9 @@
             app:layout_constraintTop_toTopOf="@id/iv_about"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="@dimen/spacing_normal_16"
-            android:layout_marginEnd="@dimen/spacing_normal_16">
+            android:layout_marginEnd="@dimen/spacing_normal_16"
+            app:counterEnabled = "true"
+            app:counterMaxLength="128">
         <EditText
                 style="@style/Profile.EditText.MultiLine"
                 android:id="@+id/et_about"
@@ -215,6 +217,7 @@
                 tools:text="Lord of Winterfall \nBastard of Ned Stark\nKing of seven kingdoms"
                 android:inputType="textMultiLine"
                 android:imeOptions="actionNext"/>
+
     </com.google.android.material.textfield.TextInputLayout>
     <View
             android:layout_width="0dp"
