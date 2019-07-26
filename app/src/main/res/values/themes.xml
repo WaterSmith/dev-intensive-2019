@@ -13,5 +13,7 @@
         <item name="colorDivider">@color/color_divider_dark</item>
 
     </style>
-
+    <style name="AppTheme.SplashTheme" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
 </resources>
