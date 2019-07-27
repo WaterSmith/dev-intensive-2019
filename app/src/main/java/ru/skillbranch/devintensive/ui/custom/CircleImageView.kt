@@ -138,9 +138,7 @@ class CircleImageView @JvmOverloads constructor(
     }
 
     override fun setColorFilter(cf: ColorFilter) {
-        if (cf === colorFilter) {
-            return
-        }
+        if (cf === colorFilter) return
 
         colorFilter = cf
         applyColorFilter()
@@ -159,8 +157,8 @@ class CircleImageView @JvmOverloads constructor(
                 null -> null
                 is BitmapDrawable -> bitmap
                 else -> {
-                    var width = if (this is ColorDrawable) 1 else intrinsicWidth
-                    var height = if (this is ColorDrawable) 1 else intrinsicHeight
+                    val width = if (this is ColorDrawable) 1 else intrinsicWidth
+                    val height = if (this is ColorDrawable) 1 else intrinsicHeight
                     val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
                     val canvas = Canvas(bitmap)
                     setBounds(0, 0, canvas.width, canvas.height)
