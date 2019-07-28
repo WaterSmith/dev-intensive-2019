@@ -3,12 +3,14 @@ package ru.skillbranch.devintensive.ui.profile
 import android.graphics.ColorFilter
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_profile_constraint.*
@@ -26,6 +28,7 @@ import kotlinx.android.synthetic.main.activity_profile_constraint.wr_about
 import kotlinx.android.synthetic.main.activity_profile_constraint.wr_repository
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.Profile
+import ru.skillbranch.devintensive.utils.Utils
 import ru.skillbranch.devintensive.viewmodels.ProfileViewModel
 
 class ProfileActivity : AppCompatActivity() {
@@ -103,9 +106,28 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun updateTheme(mode: Int) {
         delegate.setLocalNightMode(mode)
+        updateDrawable(viewModel.getProfileData().value)
+    }
+
+    private fun updateDrawable(profile: Profile?){
+        val initials = Utils.toInitials(profile?.firstName, profile?.lastName)
+        iv_avatar.setText(initials)
+        val drawable = if (initials==null) {
+            resources.getDrawable(R.drawable.ic_avatar, theme)
+        } else {
+            if (viewModel.getTheme().value== AppCompatDelegate.MODE_NIGHT_YES) {
+                ColorDrawable(resources.getColor(R.color.color_accent_night, theme))
+            } else {
+                ColorDrawable(resources.getColor(R.color.color_accent, theme))
+            }
+        }
+        iv_avatar.setImageDrawable(drawable)
     }
 
     private fun updateUI(profile: Profile) {
+
+        updateDrawable(profile)
+
         profile.toMap().also {
             for ((k,v) in viewFields){
                 v.text = it[k].toString()

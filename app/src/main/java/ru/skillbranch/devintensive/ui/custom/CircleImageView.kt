@@ -13,6 +13,10 @@ import androidx.annotation.DrawableRes
 import androidx.appcompat.widget.AppCompatImageView
 import ru.skillbranch.devintensive.R
 import kotlin.math.min
+import android.text.TextPaint
+
+
+
 
 class CircleImageView @JvmOverloads constructor(
     context: Context,
@@ -50,11 +54,18 @@ class CircleImageView @JvmOverloads constructor(
     private var isSetupPending: Boolean = false
     private var isBorderOverlay = false
 
+    private var textPaint: TextPaint = TextPaint(Paint.ANTI_ALIAS_FLAG)
+    private var text:String? = null
+
     init {
         val a = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView, defStyle, 0)
 
         borderWidth = a.getDimensionPixelSize(R.styleable.CircleImageView_cv_borderWidth, DEFAULT_BORDER_WIDTH)
         borderColor = a.getColor(R.styleable.CircleImageView_cv_borderColor, DEFAULT_BORDER_COLOR)
+        text = a.getString(R.styleable.CircleImageView_cv_text)
+
+        textPaint.setTextSize(46f * getResources().getDisplayMetrics().scaledDensity)
+        textPaint.setColor(Color.WHITE)
 
         a.recycle()
 
@@ -94,12 +105,25 @@ class CircleImageView @JvmOverloads constructor(
         }
     }
 
+    fun setText(newText:String?){
+        text = newText
+        setup()
+    }
+
     override fun onDraw(canvas: Canvas) {
         bitmap?:return
 
         if (borderWidth > 0) canvas.drawCircle(borderRect.centerX(), borderRect.centerY(), borderRadius, borderPaint)
 
         canvas.drawCircle(drawableRect.centerX(), drawableRect.centerY(), drawableRadius, bitmapPaint)
+
+        if (text!=null) {
+            val centerX = Math.round(canvas.width * 0.5f)
+            val centerY = Math.round(canvas.height * 0.5f)
+            val textWidth = textPaint.measureText(text) * 0.5f
+            val textBaseLineHeight = textPaint.fontMetrics.ascent * -0.4f
+            canvas.drawText(text, centerX - textWidth, centerY + textBaseLineHeight, textPaint)
+        }
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
