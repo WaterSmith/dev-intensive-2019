@@ -4,12 +4,26 @@ import android.graphics.ColorFilter
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_profile_constraint.*
+import kotlinx.android.synthetic.main.activity_profile_constraint.btn_edit
+import kotlinx.android.synthetic.main.activity_profile_constraint.btn_switch_theme
+import kotlinx.android.synthetic.main.activity_profile_constraint.et_about
+import kotlinx.android.synthetic.main.activity_profile_constraint.et_first_name
+import kotlinx.android.synthetic.main.activity_profile_constraint.et_last_name
+import kotlinx.android.synthetic.main.activity_profile_constraint.et_repository
+import kotlinx.android.synthetic.main.activity_profile_constraint.tv_nick_name
+import kotlinx.android.synthetic.main.activity_profile_constraint.tv_rank
+import kotlinx.android.synthetic.main.activity_profile_constraint.tv_rating
+import kotlinx.android.synthetic.main.activity_profile_constraint.tv_respect
+import kotlinx.android.synthetic.main.activity_profile_constraint.wr_about
+import kotlinx.android.synthetic.main.activity_profile_constraint.wr_repository
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.Profile
 import ru.skillbranch.devintensive.viewmodels.ProfileViewModel
@@ -45,6 +59,7 @@ class ProfileActivity : AppCompatActivity() {
         )
 
         isEditMode = savedInstanceState?.getBoolean(IS_EDIT_MODE,false)?:false
+
         showCurrentMode(isEditMode)
 
         btn_edit.setOnClickListener {
@@ -55,12 +70,35 @@ class ProfileActivity : AppCompatActivity() {
         btn_switch_theme.setOnClickListener {
             viewModel.switchTheme()
         }
+
+        with(et_repository) {
+            addTextChangedListener(object: TextWatcher {
+                override fun afterTextChanged(s: Editable?) {
+                    //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                }
+
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                    //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                }
+
+                override fun onTextChanged(stringValue: CharSequence?, start: Int, before: Int, count: Int) {
+                    viewModel.onAdressRepositoryChanged(stringValue.toString())
+                }
+
+            })
+        }
     }
 
     private fun initViewModel(){
         viewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
         viewModel.getProfileData().observe(this, Observer { updateUI(it) })
         viewModel.getTheme().observe(this, Observer { updateTheme(it) })
+        viewModel.isRepoError().observe(this, Observer {updateRepoError(it)})
+    }
+
+    private fun updateRepoError(isError: Boolean) {
+        wr_repository.isErrorEnabled = isError
+        wr_repository.error = if(isError) "Невалидный адрес репозитория" else ""
     }
 
     private fun updateTheme(mode: Int) {

@@ -219,7 +219,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_normal_16"
                 android:layout_marginEnd="@dimen/spacing_normal_16"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                app:errorEnabled="true"
+                app:errorTextAppearance="@style/TextAppearance.AppCompat.Body1">
             <EditText
                     style="@style/Profile.EditText.Single"
                     android:id="@+id/et_repository"

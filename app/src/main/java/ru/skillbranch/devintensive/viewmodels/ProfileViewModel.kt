@@ -7,16 +7,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.skillbranch.devintensive.models.Profile
 import ru.skillbranch.devintensive.repositories.PreferencesRepository
+import ru.skillbranch.devintensive.utils.Utils
 
 class ProfileViewModel : ViewModel() {
     private val repository = PreferencesRepository
     private val profileData = MutableLiveData<Profile>()
     private val appTheme = MutableLiveData<Int>()
+    private val isRepoError = MutableLiveData<Boolean>()
 
     init {
         Log.d("M_ProfileViewModel","view_model is initialised")
         profileData.value = repository.getProfile()
         appTheme.value = repository.getAppTheme()
+        onAdressRepositoryChanged(repository.getProfile().repository)
     }
 
     override fun onCleared() {
@@ -27,11 +30,15 @@ class ProfileViewModel : ViewModel() {
     fun getProfileData():LiveData<Profile> = profileData
 
     fun saveProfileData(profile: Profile){
+        if(isRepoError.value?:false) profile.repository = ""
+        isRepoError.value = true
         repository.saveProfile(profile)
         profileData.value = profile
     }
 
     fun getTheme():LiveData<Int> = appTheme
+
+    fun isRepoError():LiveData<Boolean> = isRepoError
 
     fun switchTheme() {
         if (appTheme.value == AppCompatDelegate.MODE_NIGHT_YES) {
@@ -41,4 +48,10 @@ class ProfileViewModel : ViewModel() {
         }
         repository.saveAppTheme(appTheme.value!!)
     }
+
+    fun onAdressRepositoryChanged(repoValue: String) {
+        isRepoError.value = !(Utils.mathGitHubAccount(repoValue)||repoValue.isEmpty())
+    }
+
+
 }
