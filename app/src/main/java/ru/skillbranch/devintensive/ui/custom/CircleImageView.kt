@@ -96,9 +96,11 @@ class CircleImageView @JvmOverloads constructor(
         setIntBorderColor(Integer.parseInt(hex,16))
     }
 
-    @Dimension fun getBorderWidth() = borderWidth
+    //@Dimension
+    fun getBorderWidth() = borderWidth
 
-    fun setBorderWidth(@Dimension dp: Int) {
+    //@Dimension
+    fun setBorderWidth(dp: Int) {
         if (dp != borderWidth){
             borderWidth = dp
             setup()
