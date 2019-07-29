@@ -19,7 +19,7 @@ object Utils {
     fun transliteration(payload: String, divider:String = " "): String {
         var result:String = ""
 
-        payload.forEach { char ->
+        payload.trim().forEach { char ->
             var isUppercase = char.isUpperCase()
             var key = char.toLowerCase()
             var simbol = if (char.isWhitespace()) divider else charMap.getOrDefault(key,char.toString())

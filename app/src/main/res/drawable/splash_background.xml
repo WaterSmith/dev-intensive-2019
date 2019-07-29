@@ -7,15 +7,13 @@
     <item android:drawable="@android:color/white"/>
 
     <!-- Лого приложения - 144dp версия иконки приложения -->
-    <item>
+    <item android:scaleType="centerInside">
 
         <vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt"
                                     android:viewportWidth="10800"
                                     android:viewportHeight="19200"
                                     android:width="1080dp"
-                                    android:height="1920dp"
-                                    android:gravity="center"
-                                    android:scaleType="centerCrop">
+                                    android:height="1920dp">
         <path
                 android:pathData="M10800 19200l0 -19200 -10800 0 0 19200 10800 0z"
                 android:fillType="evenOdd"

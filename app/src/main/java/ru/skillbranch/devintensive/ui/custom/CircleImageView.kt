@@ -37,7 +37,7 @@ class CircleImageView @JvmOverloads constructor(
     private val circleBackgroundPaint = Paint()
 
     private var borderColor = DEFAULT_BORDER_COLOR
-    private var borderWidth = DEFAULT_BORDER_WIDTH
+    private var borderWidthPx = convertDpToPx(DEFAULT_BORDER_WIDTH)
 
     private var bitmap: Bitmap? = null
     private var bitmapShader: BitmapShader? = null
@@ -57,12 +57,9 @@ class CircleImageView @JvmOverloads constructor(
     private var text:String? = null
 
     init {
-        //Log.d("CircleImageView", "borderWidth set to default $borderWidth")
-
         val a = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView, defStyle, 0)
 
-        //borderWidth = a.getDimensionPixelSize(R.styleable.CircleImageView_cv_borderWidth, DEFAULT_BORDER_WIDTH)
-        //Log.d("CircleImageView", "borderWidth init $borderWidth")
+        borderWidthPx = a.getDimensionPixelSize(R.styleable.CircleImageView_cv_borderWidth, borderWidthPx)
         borderColor = a.getColor(R.styleable.CircleImageView_cv_borderColor, DEFAULT_BORDER_COLOR)
         text = a.getString(R.styleable.CircleImageView_cv_text)
 
@@ -98,14 +95,17 @@ class CircleImageView @JvmOverloads constructor(
         setIntBorderColor(Integer.parseInt(hex,16))
     }
 
+    private fun convertDpToPx(dp:Int):Int = (dp * context.applicationContext.resources.displayMetrics.density + 0.5f).toInt()
+    private fun convertPxToDp(px:Int):Int = (px / context.applicationContext.resources.displayMetrics.density).toInt()
+
     @Dimension
-    fun getBorderWidth() = borderWidth
+    fun getBorderWidth() = convertPxToDp(borderWidthPx)
 
     @Dimension
     fun setBorderWidth(dp: Int) {
-        if (dp != borderWidth){
-            Log.d("CircleImageView", "borderWidth set to $dp")
-            borderWidth = dp
+        val newWidth = convertDpToPx(dp)
+        if (newWidth != borderWidthPx){
+            borderWidthPx = newWidth
             setup()
         }
     }
@@ -118,16 +118,16 @@ class CircleImageView @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas) {
         bitmap?:return
 
-        if (borderWidth > 0) canvas.drawCircle(borderRect.centerX(), borderRect.centerY(), borderRadius, borderPaint)
+        if (borderWidthPx > 0) canvas.drawCircle(borderRect.centerX(), borderRect.centerY(), borderRadius, borderPaint)
 
         canvas.drawCircle(drawableRect.centerX(), drawableRect.centerY(), drawableRadius, bitmapPaint)
 
-        if (text!=null) {
+        if (text != null) {
             val centerX = Math.round(canvas.width * 0.5f)
             val centerY = Math.round(canvas.height * 0.5f)
             val textWidth = textPaint.measureText(text) * 0.5f
             val textBaseLineHeight = textPaint.fontMetrics.ascent * -0.4f
-            canvas.drawText(text, centerX - textWidth, centerY + textBaseLineHeight, textPaint)
+            canvas.drawText(text!!, centerX - textWidth, centerY + textBaseLineHeight, textPaint)
         }
     }
 
@@ -221,13 +221,11 @@ class CircleImageView @JvmOverloads constructor(
         bitmapPaint.isAntiAlias = true
         bitmapPaint.shader = bitmapShader
 
-        val borderWidthPx = borderWidth * context.applicationContext.resources.displayMetrics.density
-
         with(borderPaint){
             style = Paint.Style.STROKE
             isAntiAlias = true
             color = borderColor
-            strokeWidth = borderWidthPx
+            strokeWidth = borderWidthPx.toFloat()
         }
 
         with(circleBackgroundPaint) {
