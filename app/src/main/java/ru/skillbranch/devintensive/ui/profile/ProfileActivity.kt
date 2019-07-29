@@ -122,6 +122,7 @@ class ProfileActivity : AppCompatActivity() {
             }
         }
         iv_avatar.setImageDrawable(drawable)
+
     }
 
     private fun updateUI(profile: Profile) {

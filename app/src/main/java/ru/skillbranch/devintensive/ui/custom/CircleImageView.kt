@@ -14,8 +14,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import ru.skillbranch.devintensive.R
 import kotlin.math.min
 import android.text.TextPaint
-
-
+import android.util.Log
 
 
 class CircleImageView @JvmOverloads constructor(
@@ -58,9 +57,12 @@ class CircleImageView @JvmOverloads constructor(
     private var text:String? = null
 
     init {
+        //Log.d("CircleImageView", "borderWidth set to default $borderWidth")
+
         val a = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView, defStyle, 0)
 
-        borderWidth = a.getDimensionPixelSize(R.styleable.CircleImageView_cv_borderWidth, DEFAULT_BORDER_WIDTH)
+        //borderWidth = a.getDimensionPixelSize(R.styleable.CircleImageView_cv_borderWidth, DEFAULT_BORDER_WIDTH)
+        //Log.d("CircleImageView", "borderWidth init $borderWidth")
         borderColor = a.getColor(R.styleable.CircleImageView_cv_borderColor, DEFAULT_BORDER_COLOR)
         text = a.getString(R.styleable.CircleImageView_cv_text)
 
@@ -96,12 +98,13 @@ class CircleImageView @JvmOverloads constructor(
         setIntBorderColor(Integer.parseInt(hex,16))
     }
 
-    //@Dimension
+    @Dimension
     fun getBorderWidth() = borderWidth
 
-    //@Dimension
+    @Dimension
     fun setBorderWidth(dp: Int) {
         if (dp != borderWidth){
+            Log.d("CircleImageView", "borderWidth set to $dp")
             borderWidth = dp
             setup()
         }
