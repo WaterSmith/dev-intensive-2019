@@ -42,7 +42,7 @@ object Utils {
     }
 
     fun mathGitHubAccount(adress:String):Boolean = adress.matches(
-        "^(http(s){0,1}:\\/\\/){0,1}(www.){0,1}github.com\\/[A-z\\d](?:[A-z\\d]|-(?=[A-z\\d])){0,38}\$".toRegex()) &&
+        Regex("^(http(s){0,1}:\\/\\/){0,1}(www.){0,1}github.com\\/[A-z\\d](?:[A-z\\d]|-(?=[A-z\\d])){0,38}\$",RegexOption.IGNORE_CASE)) &&
             !adress.matches(Regex("^.*(" +
                         "\\/enterprise|" +
                         "\\/features|" +

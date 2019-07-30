@@ -92,11 +92,11 @@ class CircleImageView @JvmOverloads constructor(
     }
 
     fun setBorderColor(hex:String){
-        setIntBorderColor(Integer.parseInt(hex,16))
+        setIntBorderColor(Color.parseColor(hex))
     }
 
     private fun convertDpToPx(dp:Int):Int = (dp * context.applicationContext.resources.displayMetrics.density + 0.5f).toInt()
-    private fun convertPxToDp(px:Int):Int = (px / context.applicationContext.resources.displayMetrics.density).toInt()
+    private fun convertPxToDp(px:Int):Int = (px / context.applicationContext.resources.displayMetrics.density + 0.5f).toInt()
 
     @Dimension
     fun getBorderWidth() = convertPxToDp(borderWidthPx)
@@ -152,8 +152,15 @@ class CircleImageView @JvmOverloads constructor(
     }
 
     override fun setImageDrawable(drawable: Drawable?) {
-        super.setImageDrawable(drawable)
-        initializeBitmap()
+        if (drawable is ColorDrawable) {
+            val image = Bitmap.createBitmap(250, 250, Bitmap.Config.ARGB_8888)
+            val canvas = Canvas(image)
+            canvas.drawColor(drawable.color)
+            setImageBitmap(image)
+        } else {
+            super.setImageDrawable(drawable)
+            initializeBitmap()
+        }
     }
 
     override fun setImageResource(@DrawableRes resId: Int) {

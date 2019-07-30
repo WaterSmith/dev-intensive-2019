@@ -1,12 +1,17 @@
 package ru.skillbranch.devintensive
 
+import android.content.res.Configuration
+import android.graphics.Color
+import android.util.TypedValue
+import androidx.test.espresso.Espresso
+import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import ru.skillbranch.devintensive.models.Bender
 import ru.skillbranch.devintensive.ui.profile.ProfileActivity
 
 @RunWith(AndroidJUnit4::class)
@@ -16,62 +21,64 @@ class Task3 {
     val rule = ActivityTestRule(ProfileActivity::class.java)
 
     @Test
-    fun listenAnswerHalfPosTest(){
-        val bender = Bender()
-        assertEquals("Как меня зовут?", bender.question.question)
-        var response = bender.listenAnswer("Валя Голубкова")
-        assertEquals("Это неправильный ответ\nКак меня зовут?", response.first)
-        response = bender.listenAnswer("Bender")
-        assertEquals("Отлично - ты справился\nНазови мою профессию?", response.first)
-        response = bender.listenAnswer("актёр мультфильма")
-        assertEquals("Это неправильный ответ\nНазови мою профессию?", response.first)
-        response = bender.listenAnswer("а")
-        assertEquals("Это неправильный ответ\nНазови мою профессию?", response.first)
-        response = bender.listenAnswer("сгибальщик")
-        assertEquals("Отлично - ты справился\nИз чего я сделан?", response.first)
-        response = bender.listenAnswer("iron")
-        assertEquals("Отлично - ты справился\nКогда меня создали?", response.first)
-        response = bender.listenAnswer("2993")
-        assertEquals("Отлично - ты справился\nМой серийный номер?", response.first)
-        response = bender.listenAnswer("2716057")
-        assertEquals("Отлично - ты справился\nНа этом все, вопросов больше нет", response.first)
+    fun checkDayThemeColorsTest(){
+        var curTheme = rule.activity.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        if (curTheme == Configuration.UI_MODE_NIGHT_YES)
+            switchTheme()
+
+        curTheme = rule.activity.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        assertEquals(curTheme, Configuration.UI_MODE_NIGHT_NO)
+
+        checkColors("#473770", "#9CA9BA", "#1F000000")
     }
 
     @Test
-    fun listenAnswerNegativeTest1(){
-        val bender = Bender()
-        assertEquals("Как меня зовут?", bender.question.question)
-        var response = bender.listenAnswer("Валя Голубкова")
-        assertEquals("Это неправильный ответ\nКак меня зовут?", response.first)
-        response = bender.listenAnswer("Bender")
-        assertEquals("Отлично - ты справился\nНазови мою профессию?", response.first)
-        response = bender.listenAnswer("актёр мультфильма")
-        assertEquals("Это неправильный ответ\nНазови мою профессию?", response.first)
-        response = bender.listenAnswer("хозяин казино с блэкджеком и ...")
-        assertEquals("Это неправильный ответ\nНазови мою профессию?", response.first)
-        response = bender.listenAnswer("сгибальщик")
-        assertEquals("Отлично - ты справился\nИз чего я сделан?", response.first)
-        response = bender.listenAnswer("iron")
-        assertEquals("Отлично - ты справился\nКогда меня создали?", response.first)
-        response = bender.listenAnswer("2993")
-        assertEquals("Отлично - ты справился\nМой серийный номер?", response.first)
-        response = bender.listenAnswer("2716054")
-        assertEquals("Это неправильный ответ. Давай все по новой\nКак меня зовут?", response.first)
-        response = bender.listenAnswer("Bender")
-        assertEquals("Отлично - ты справился\nНазови мою профессию?", response.first)
+    fun checkNightThemeColorsTest(){
+        var curTheme = rule.activity.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        if (curTheme == Configuration.UI_MODE_NIGHT_NO)
+            switchTheme()
+
+        curTheme = rule.activity.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        assertEquals(curTheme, Configuration.UI_MODE_NIGHT_YES)
+
+        checkColors("#1FFFFFFF", "#ffffffff", "#1F000000")
     }
 
     @Test
-    fun listenAnswerNegativeTest2(){
-        val bender = Bender()
-        assertEquals("Как меня зовут?", bender.question.question)
-        var response = bender.listenAnswer("Фрай")
-        assertEquals("Это неправильный ответ\nКак меня зовут?", response.first)
-        response = bender.listenAnswer("Зоя")
-        assertEquals("Это неправильный ответ\nКак меня зовут?", response.first)
-        response = bender.listenAnswer("Бандарчук")
-        assertEquals("Это неправильный ответ\nКак меня зовут?", response.first)
-        response = bender.listenAnswer("Bomberman")
-        assertEquals("Это неправильный ответ. Давай все по новой\nКак меня зовут?", response.first)
+    fun saveThemeOnExitTest(){
+        val prevTheme = rule.activity.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        switchTheme()
+
+        val intent = rule.activity.intent
+        rule.finishActivity()
+        Thread.sleep(1000)
+        rule.launchActivity(intent)
+        Thread.sleep(1000)
+
+        val newTheme = rule.activity.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        assertNotEquals(prevTheme, newTheme)
+    }
+
+    private fun checkColors(surface: String, icon: String, divider: String) {
+        val typedValue = TypedValue()
+        val colorAccentedSurface = rule.activity.resources.getIdentifier("colorAccentedSurface", "attr", rule.activity.packageName)
+        rule.activity.theme.resolveAttribute(colorAccentedSurface, typedValue, true)
+        var color = typedValue.data
+        assertEquals(color, Color.parseColor(surface))
+
+        val colorIcon = rule.activity.resources.getIdentifier("colorIcon", "attr", rule.activity.packageName)
+        rule.activity.theme.resolveAttribute(colorIcon, typedValue, true)
+        color = typedValue.data
+        assertEquals(color, Color.parseColor(icon))
+
+        val colorDivider = rule.activity.resources.getIdentifier("colorDivider", "attr", rule.activity.packageName)
+        rule.activity.theme.resolveAttribute(colorDivider, typedValue, true)
+        color = typedValue.data
+        assertEquals(color, Color.parseColor(divider))
+    }
+
+    private fun switchTheme() {
+        val switchThemeBtnId = rule.activity.resources.getIdentifier("btn_switch_theme", "id", rule.activity.packageName)
+        Espresso.onView(ViewMatchers.withId(switchThemeBtnId)).perform(ViewActions.click())
     }
 }

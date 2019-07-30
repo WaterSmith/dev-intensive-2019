@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -115,11 +116,9 @@ class ProfileActivity : AppCompatActivity() {
         val drawable = if (initials==null) {
             resources.getDrawable(R.drawable.ic_avatar, theme)
         } else {
-            if (viewModel.getTheme().value== AppCompatDelegate.MODE_NIGHT_YES) {
-                ColorDrawable(resources.getColor(R.color.color_accent_night, theme))
-            } else {
-                ColorDrawable(resources.getColor(R.color.color_accent, theme))
-            }
+            val color = TypedValue()
+            theme.resolveAttribute(R.attr.colorAccent, color, true)
+            ColorDrawable(color.data)
         }
         iv_avatar.setImageDrawable(drawable)
 
