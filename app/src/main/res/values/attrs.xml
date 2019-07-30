@@ -5,6 +5,7 @@
     </declare-styleable>
 
     <attr name="colorAccentedSurface" format="reference"/>
+    <attr name="colorAntiAccent" format="reference"/>
     <attr name="colorDivider" format="reference"/>
     <attr name="colorIcon" format="reference"/>
 
@@ -12,6 +13,8 @@
         <attr name="cv_borderColor" format="color"/>
         <attr name="cv_borderWidth" format="dimension"/>
         <attr name="cv_text" format="string"/>
+        <attr name="cv_textSize" format="dimension"/>
+        <attr name="cv_textColor" format="color"/>
     </declare-styleable>
 
 </resources>

@@ -15,6 +15,8 @@ import ru.skillbranch.devintensive.R
 import kotlin.math.min
 import android.text.TextPaint
 import android.util.Log
+import androidx.annotation.ColorInt
+import androidx.core.graphics.drawable.toBitmap
 
 
 class CircleImageView @JvmOverloads constructor(
@@ -55,16 +57,18 @@ class CircleImageView @JvmOverloads constructor(
 
     private var textPaint: TextPaint = TextPaint(Paint.ANTI_ALIAS_FLAG)
     private var text:String? = null
+    private var textSize:Int = 10
+    private var textColor = DEFAULT_BORDER_COLOR
 
     init {
         val a = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView, defStyle, 0)
 
         borderWidthPx = a.getDimensionPixelSize(R.styleable.CircleImageView_cv_borderWidth, borderWidthPx)
-        borderColor = a.getColor(R.styleable.CircleImageView_cv_borderColor, DEFAULT_BORDER_COLOR)
-        text = a.getString(R.styleable.CircleImageView_cv_text)
 
-        textPaint.setTextSize(46f * getResources().getDisplayMetrics().scaledDensity)
-        textPaint.setColor(Color.WHITE)
+        setIntBorderColor(a.getColor(R.styleable.CircleImageView_cv_borderColor, borderColor))
+        text = a.getString(R.styleable.CircleImageView_cv_text)
+        setTextSize(a.getDimensionPixelSize(R.styleable.CircleImageView_cv_textSize, textSize))
+        setIntTextColor(a.getColor(R.styleable.CircleImageView_cv_textColor, textColor))
 
         a.recycle()
 
@@ -79,9 +83,9 @@ class CircleImageView @JvmOverloads constructor(
 
     fun getBorderColor() = borderColor
 
-    fun setIntBorderColor(color: Int) {
-        if (color != borderColor) {
-            borderColor = color
+    private fun setIntBorderColor(@ColorInt colorValue: Int) {
+        if (colorValue != borderColor) {
+            borderColor = colorValue
             borderPaint.color = borderColor
             invalidate()
         }
@@ -91,15 +95,9 @@ class CircleImageView @JvmOverloads constructor(
         setIntBorderColor(resources.getColor(colorId, context.theme))
     }
 
-    fun setBorderColor(hex:String){
-        setIntBorderColor(Color.parseColor(hex))
-    }
+    fun setBorderColor(hexColor:String) = setIntBorderColor(Color.parseColor(hexColor))
 
-    private fun convertDpToPx(dp:Int):Int = (dp * context.applicationContext.resources.displayMetrics.density + 0.5f).toInt()
-    private fun convertPxToDp(px:Int):Int = (px / context.applicationContext.resources.displayMetrics.density + 0.5f).toInt()
-
-    @Dimension
-    fun getBorderWidth() = convertPxToDp(borderWidthPx)
+    @Dimension fun getBorderWidth() = convertPxToDp(borderWidthPx)
 
     @Dimension
     fun setBorderWidth(dp: Int) {
@@ -114,6 +112,23 @@ class CircleImageView @JvmOverloads constructor(
         text = newText
         setup()
     }
+
+    fun setTextSize(size:Int) {
+        textSize = size
+        textPaint.setTextSize(textSize * resources.displayMetrics.scaledDensity)
+    }
+
+    fun setTextColor(@ColorRes colorId:Int) = setIntTextColor(resources.getColor(colorId,context.theme))
+
+    fun setTextColor(hexColor:String) = setIntTextColor(Color.parseColor(hexColor))
+
+    private fun setIntTextColor(@ColorInt colorValue:Int) {
+        textColor = colorValue
+        textPaint.setColor(textColor)
+    }
+
+    private fun convertDpToPx(dp:Int):Int = (dp * resources.displayMetrics.density + 0.5f).toInt()
+    private fun convertPxToDp(px:Int):Int = (px / resources.displayMetrics.density + 0.5f).toInt()
 
     override fun onDraw(canvas: Canvas) {
         bitmap?:return
@@ -187,26 +202,9 @@ class CircleImageView @JvmOverloads constructor(
         bitmapPaint.colorFilter = colorFilter
     }
 
-    private fun getBitmapFromDrawable(drawable: Drawable?): Bitmap? {
-        with(drawable){
-            return when (this) {
-                null -> null
-                is BitmapDrawable -> bitmap
-                else -> {
-                    val width = if (this is ColorDrawable) 1 else intrinsicWidth
-                    val height = if (this is ColorDrawable) 1 else intrinsicHeight
-                    val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-                    val canvas = Canvas(bitmap)
-                    setBounds(0, 0, canvas.width, canvas.height)
-                    draw(canvas)
-                    bitmap
-                }
-            }
-        }
-    }
 
     private fun initializeBitmap() {
-        bitmap = getBitmapFromDrawable(drawable)
+        bitmap = drawable.toBitmap()
         setup()
     }
 

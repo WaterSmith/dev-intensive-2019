@@ -6,6 +6,7 @@
         <item name="colorPrimary">@android:color/white</item>
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
         <item name="colorAccent">@color/color_accent_night</item>
+        <item name="colorAntiAccent">@color/color_accent</item>
 
         <item name="colorAccentedSurface">@color/color_divider_light</item>
         <item name="colorIcon">@android:color/white</item>

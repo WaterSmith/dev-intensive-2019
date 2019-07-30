@@ -111,8 +111,8 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun updateDrawable(profile: Profile?){
+
         val initials = Utils.toInitials(profile?.firstName, profile?.lastName)
-        iv_avatar.setText(initials)
         val drawable = if (initials==null) {
             resources.getDrawable(R.drawable.ic_avatar, theme)
         } else {
@@ -121,6 +121,7 @@ class ProfileActivity : AppCompatActivity() {
             ColorDrawable(color.data)
         }
         iv_avatar.setImageDrawable(drawable)
+        iv_avatar.setText(initials)
 
     }
 
