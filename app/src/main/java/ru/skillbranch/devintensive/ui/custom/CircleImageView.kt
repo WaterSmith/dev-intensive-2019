@@ -97,10 +97,9 @@ class CircleImageView @JvmOverloads constructor(
 
     fun setBorderColor(hexColor:String) = setIntBorderColor(Color.parseColor(hexColor))
 
-    @Dimension fun getBorderWidth() = convertPxToDp(borderWidthPx)
+    @Dimension(unit = Dimension.DP) fun getBorderWidth() = convertPxToDp(borderWidthPx)
 
-    @Dimension
-    fun setBorderWidth(dp: Int) {
+    fun setBorderWidth(@Dimension(unit = Dimension.DP) dp: Int) {
         val newWidth = convertDpToPx(dp)
         if (newWidth != borderWidthPx){
             borderWidthPx = newWidth
