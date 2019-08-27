@@ -1,6 +1,7 @@
 <resources>
-
-
+    
+    <style name="PopUpTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar"/>
+    <style name="PopUpTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light"/>
 
     <style name="Profile">
 

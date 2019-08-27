@@ -1,8 +1,8 @@
 package ru.skillbranch.devintensive.ui.custom
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
@@ -14,7 +14,6 @@ import androidx.appcompat.widget.AppCompatImageView
 import ru.skillbranch.devintensive.R
 import kotlin.math.min
 import android.text.TextPaint
-import android.util.Log
 import androidx.annotation.ColorInt
 import androidx.core.graphics.drawable.toBitmap
 
