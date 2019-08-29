@@ -1,8 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/spacing_normal_16">
-
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/item_size"
+        android:padding="@dimen/spacing_normal_16"
+        tools:background="@color/color_gray">
+    <ru.skillbranch.devintensive.ui.custom.CircleImageView
+            android:id="@+id/iv_avatar_single"
+            android:layout_width="@dimen/avatar_item_size"
+            android:layout_height="@dimen/avatar_item_size"
+            android:layout_alignParentStart="true"
+            tools:background="@drawable/bg_counter"
+            />
+    <View
+        android:id="@+id/sv_indicator"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@id/tv_title_single"
+            android:background="@drawable/bg_indicator"/>
+    <TextView
+        android:id="@+id/tv_title_single"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text = "Chat title"
+            android:textColor="@color/color_primary"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="14sp"
+            android:layout_toEndOf="@id/iv_avatar_single"
+            android:layout_toStartOf="@id/tv_date_single"
+            android:layout_marginLeft="@dimen/spacing_normal_16"
+            android:layout_marginRight="@dimen/spacing_normal_16"/>
+    <TextView
+            android:id="@+id/tv_message_single"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text = "Когда я проходил интенсив, я успел побывать в отпуске, между занятиями."
+            android:textColor="@color/color_gray_dark"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="14sp"
+            android:layout_below="@id/tv_title_single"
+            android:layout_toEndOf="@id/iv_avatar_single"
+            android:layout_toStartOf="@id/tv_counter_single"
+            android:layout_marginLeft="@dimen/spacing_normal_16"
+            android:layout_marginRight="@dimen/spacing_normal_16"/>
+    <TextView
+            android:id="@+id/tv_date_single"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:textColor="@color/color_gray_dark"
+            tools:text="10:03"/>
+    <TextView
+            android:id="@+id/tv_counter_single"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/counter_size"
+            android:minWidth="@dimen/counter_size"
+            android:textSize="10sp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:textColor="@android:color/white"
+            android:background="@drawable/bg_counter"
+            tools:text="11"
+            android:gravity="center"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"/>
 </RelativeLayout>
