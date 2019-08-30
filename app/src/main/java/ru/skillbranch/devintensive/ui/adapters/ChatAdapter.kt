@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.item_chat_single.*
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.data.ChatItem
 
-class ChatAdapter : RecyclerView.Adapter<ChatAdapter.SingleViewHolder>() {
+class ChatAdapter(val listener: (ChatItem) -> Unit) : RecyclerView.Adapter<ChatAdapter.SingleViewHolder>() {
     var items : List<ChatItem> = listOf()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleViewHolder {
         val inflator = LayoutInflater.from(parent.context)
@@ -21,12 +21,17 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.SingleViewHolder>() {
     override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: SingleViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(items[position], listener)
         Log.d("M_ChatAdapter","onBindViewHolder")
     }
 
+    fun updateData(data : List<ChatItem>){
+        items = data
+        notifyDataSetChanged()
+    }
+
     inner class SingleViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
-        fun bind(item:ChatItem){
+        fun bind(item:ChatItem, listener: (ChatItem) -> Unit){
             if (item.avatar==null) {
                 iv_avatar_single.setText(item.initials)
             } else {
@@ -41,10 +46,15 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.SingleViewHolder>() {
             }
 
             with(tv_counter_single){
-                    
+                visibility = if (item.messageCount>0) View.VISIBLE else View.GONE
+                text = item.messageCount.toString()
             }
 
-            tv_title_single.text = item.shortDescription
+            tv_title_single.text = item.title
+            tv_message_single.text = item.shortDescription
+            itemView.setOnClickListener{
+                listener.invoke(item)
+            }
         }
     }
 }

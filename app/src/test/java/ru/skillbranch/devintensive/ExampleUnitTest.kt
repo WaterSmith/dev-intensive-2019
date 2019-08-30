@@ -1,11 +1,11 @@
 package ru.skillbranch.devintensive
 
-import android.util.Log
 import org.junit.Test
 
 import org.junit.Assert.*
 import ru.skillbranch.devintensive.extensions.*
 import ru.skillbranch.devintensive.models.*
+import ru.skillbranch.devintensive.models.data.User
 import ru.skillbranch.devintensive.utils.Utils
 import java.util.*
 

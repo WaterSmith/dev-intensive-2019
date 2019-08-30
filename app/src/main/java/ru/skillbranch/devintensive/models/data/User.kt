@@ -1,4 +1,4 @@
-package ru.skillbranch.devintensive.models
+package ru.skillbranch.devintensive.models.data
 
 import ru.skillbranch.devintensive.utils.Utils
 import java.util.*
@@ -29,7 +29,11 @@ data class User (
         fun makeUser(fullName:String?) : User {
             val (firstName, lastName) = Utils.parseFullName(fullName)
 
-            return User("${takeNextId()}", firstName, lastName)
+            return User(
+                "${takeNextId()}",
+                firstName,
+                lastName
+            )
         }
 
         fun takeNextId() = "${++lastId}"
@@ -87,7 +91,7 @@ data class User (
 
         fun build(): User =
             User(
-                id = this.id?:takeNextId(),
+                id = this.id ?: takeNextId(),
                 firstName = this.firstName,
                 lastName = this.lastName,
                 avatar = this.avatar,

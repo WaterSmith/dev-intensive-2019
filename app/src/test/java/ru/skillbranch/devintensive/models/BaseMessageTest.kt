@@ -2,6 +2,7 @@ package ru.skillbranch.devintensive.models
 
 import org.junit.Assert.*
 import org.junit.Test
+import ru.skillbranch.devintensive.models.data.User
 import java.util.*
 
 class BaseMessageTest {

@@ -4,6 +4,7 @@ import org.junit.Assert.*
 import org.junit.Test
 import ru.skillbranch.devintensive.extensions.TimeUnits
 import ru.skillbranch.devintensive.extensions.add
+import ru.skillbranch.devintensive.models.data.User
 import java.util.*
 
 class UserTest {
@@ -25,7 +26,8 @@ class UserTest {
             0,
             1000,
             date.add(-2, TimeUnits.DAY),
-            false)
+            false
+        )
 
         val user2 = User.Builder().id("5")
             .firstName("Никола")

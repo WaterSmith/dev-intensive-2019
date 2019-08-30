@@ -1,13 +1,39 @@
 package ru.skillbranch.devintensive.models.data
 
-import ru.skillbranch.devintensive.models.User
+import androidx.annotation.VisibleForTesting
 import ru.skillbranch.devintensive.models.BaseMessage
+import ru.skillbranch.devintensive.models.ImageMessage
+import ru.skillbranch.devintensive.models.TextMessage
+import java.util.*
 
-class Chat (
-    val id:String,
-    val members: MutableList<User> = mutableListOf(),
-    val messages: MutableList<BaseMessage> = mutableListOf()
+data class Chat(
+    val id: String,
+    val title: String,
+    val members: List<User> = listOf(),
+    var messages: MutableList<BaseMessage> = mutableListOf(),
+    var isArchived: Boolean = false
 ) {
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun unreadableMessageCount(): Int {
+        //TODO implement me
+        return messages.count { it.isReaded.not() }
+    }
+
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun lastMessageDate(): Date? {
+        //TODO implement me
+        return Date()
+    }
+
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun lastMessageShort(): Pair<String, String?> = when(val lastMessage = messages.lastOrNull()){
+        is TextMessage -> Pair(lastMessage.text?:"", lastMessage.from.firstName)
+        is ImageMessage -> Pair(lastMessage.image, lastMessage.from.firstName)
+        else -> Pair("",null)
+    }
+
+    fun isSingle(): Boolean = members.size == 1
+
     enum class ChatType{
         SINGLE,
         GROUP,
@@ -32,48 +58,24 @@ data class Chat(
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun unreadableMessageCount(): Int {
         //TODO implement me
+        return 0
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun lastMessageDate(): Date? {
         //TODO implement me
+        return Date()
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun lastMessageShort(): Pair<String, String?> = when(val lastMessage = messages.lastOrNull()){
        //TODO implement me
+       return "Сообщений еще нет."
     }
 
     private fun isSingle(): Boolean = members.size == 1
 
-    fun toChatItem(): ChatItem {
-        return if (isSingle()) {
-            val user = members.first()
-            ChatItem(
-                id,
-                user.avatar,
-                Utils.toInitials(user.firstName, user.lastName) ?: "??",
-                "${user.firstName ?: ""} ${user.lastName ?: ""}",
-                lastMessageShort().first,
-                unreadableMessageCount(),
-                lastMessageDate()?.shortFormat(),
-                user.isOnline
-            )
-        } else {
-            ChatItem(
-                id,
-                null,
-                "",
-                title,
-                lastMessageShort().first,
-                unreadableMessageCount(),
-                lastMessageDate()?.shortFormat(),
-                false,
-                ChatType.GROUP,
-                lastMessageShort().second
-            )
-        }
-    }
+
 }
 
 enum class ChatType{

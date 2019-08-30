@@ -1,6 +1,7 @@
 package ru.skillbranch.devintensive.models
 
 import ru.skillbranch.devintensive.models.data.Chat
+import ru.skillbranch.devintensive.models.data.User
 import ru.skillbranch.devintensive.models.data.UserItem
 import java.util.*
 
@@ -9,7 +10,7 @@ import java.util.*
  */
 abstract class BaseMessage(
     val id: String,
-    val from: UserItem,
+    val from: User,
     val chat: Chat,
     val isIncoming: Boolean = true,
     val date: Date = Date(),

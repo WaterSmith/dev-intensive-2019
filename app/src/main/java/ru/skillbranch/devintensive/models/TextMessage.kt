@@ -1,7 +1,7 @@
 package ru.skillbranch.devintensive.models
 
 import ru.skillbranch.devintensive.models.data.Chat
-import ru.skillbranch.devintensive.models.data.UserItem
+import ru.skillbranch.devintensive.models.data.User
 import java.util.*
 
 /**
@@ -9,7 +9,7 @@ import java.util.*
  */
 class TextMessage(
     id: String,
-    from: UserItem,
+    from: User,
     chat: Chat,
     isIncoming: Boolean = false,
     date: Date = Date(),
