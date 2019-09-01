@@ -23,14 +23,19 @@
             android:id="@+id/iv_avatar"
             android:layout_width="@dimen/avatar_round_size"
             android:layout_height="@dimen/avatar_round_size"
-            app:srcCompat="?attr/colorAccent"
-            app:cv_borderWidth="2dp"
+
+
             app:layout_constraintTop_toTopOf="@+id/iv_header_background"
             app:layout_constraintEnd_toEndOf="@+id/iv_header_background"
             app:layout_constraintStart_toStartOf="@+id/iv_header_background"
             app:layout_constraintHorizontal_bias="0.498"
-            app:cv_text="VASYA"
-            app:cv_textSize="@dimen/font_small_12"
+            app:srcCompat="?attr/colorAccent"
+            app:cv_textSize="@dimen/font_large_20"
+            app:cv_text="VS"
+            app:cv_textColor="@color/color_gray"
+            app:cv_borderWidth="2dp"
+            app:cv_borderColor="@color/color_gray_light"
+
             />
     <ImageButton
             android:id="@+id/btn_switch_theme"
