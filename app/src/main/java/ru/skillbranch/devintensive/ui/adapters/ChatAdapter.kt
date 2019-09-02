@@ -71,12 +71,14 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) : RecyclerView.Adapter<ChatA
             if (item.avatar==null) {
                 Glide.with(itemView)
                     .clear(iv_avatar_single)
+                iv_avatar_single.setImageDrawable(containerView.resources.getDrawable(R.color.color_accent, containerView.context.theme))
                 iv_avatar_single.setText(item.initials)
             } else {
+                iv_avatar_single.setText(null)
                 Glide.with(itemView)
                     .load(item.avatar)
                     .into(iv_avatar_single)
-                iv_avatar_single.setText("")
+
             }
 
             sv_indicator.visibility = if (item.isOnline) View.VISIBLE else View.GONE
@@ -101,7 +103,7 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) : RecyclerView.Adapter<ChatA
 
     inner class GroupViewHolder(containerView: View) : ChatItemViewHolder(containerView), LayoutContainer{
         override fun bind(item: ChatItem, listener: (ChatItem) -> Unit) {
-            iv_avatar_group.setText(item.initials)
+            iv_avatar_group.setText(item.title[0].toString())
             //sv_indicator.visibility = if (item.isOnline) View.VISIBLE else View.GONE
 
             with(tv_date_group){
