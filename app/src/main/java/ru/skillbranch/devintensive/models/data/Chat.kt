@@ -15,14 +15,15 @@ data class Chat(
 ) {
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun unreadableMessageCount(): Int {
-        //TODO implement me
-        return messages.count { it.isReaded.not() }
+        return messages.count { !it.isReaded }
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun lastMessageDate(): Date? {
-        //TODO implement me
-        return Date()
+        return when(val lastMessage = messages.lastOrNull()){
+            null -> null
+            else -> lastMessage.date
+        }
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)

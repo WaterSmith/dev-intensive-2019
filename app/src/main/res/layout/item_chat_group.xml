@@ -13,7 +13,9 @@
             android:layout_height="@dimen/avatar_item_size"
             android:layout_alignParentStart="true"
             app:srcCompat="?attr/colorAntiAccent"
-            app:cv_borderWidth="0dp"/>
+            app:cv_borderWidth="0dp"
+            android:layout_marginRight="@dimen/spacing_normal_16"
+            android:layout_alignParentLeft="true"/>
     <TextView
         android:id="@+id/tv_title_group"
             android:layout_width="match_parent"
@@ -24,7 +26,6 @@
             android:textSize="14sp"
             android:layout_toEndOf="@id/iv_avatar_group"
             android:layout_toStartOf="@id/tv_date_group"
-            android:layout_marginLeft="@dimen/spacing_normal_16"
             android:layout_marginRight="@dimen/spacing_normal_16"
             android:maxLines="1"/>
     <TextView
@@ -35,7 +36,6 @@
             android:textColor="@color/color_primary"
             android:textSize="14sp"
             android:layout_toRightOf="@id/iv_avatar_group"
-            android:layout_marginLeft="@dimen/spacing_normal_16"
             android:layout_marginRight="@dimen/spacing_tiny_4"
             android:layout_below="@id/tv_title_group"
             tools:visibility="gone"/>
@@ -48,7 +48,6 @@
             android:textSize="14sp"
             android:layout_toRightOf="@id/tv_message_author"
             android:layout_toLeftOf="@id/tv_counter_group"
-            android:layout_marginLeft="@dimen/spacing_normal_16"
             android:layout_marginRight="@dimen/spacing_normal_16"
             android:layout_below="@id/tv_title_group"
             />
