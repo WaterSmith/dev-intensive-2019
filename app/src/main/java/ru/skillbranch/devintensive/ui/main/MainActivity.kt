@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
 
         fab_chat_list.setOnClickListener {
-            viewModel.addItems()
+
         }
     }
 

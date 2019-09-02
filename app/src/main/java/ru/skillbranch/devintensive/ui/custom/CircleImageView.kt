@@ -202,7 +202,7 @@ class CircleImageView @JvmOverloads constructor(
 
 
     private fun initializeBitmap() {
-        bitmap = drawable.toBitmap()
+        bitmap = (drawable?:return).toBitmap()
         setup()
     }
 

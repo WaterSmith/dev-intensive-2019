@@ -6,9 +6,17 @@ import ru.skillbranch.devintensive.models.data.Chat
 
 object ChatRepository {
     private val chats = CacheManager.loadChats()
+
     fun loadChats():MutableLiveData<List<Chat>> = chats
-    fun update(copy: Unit) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+    fun update(chat: Chat) {
+        val copy = chats.value!!.toMutableList()
+        val ind = chats.value!!.indexOfFirst { it.id == chat.id }
+
+        if (ind == -1) return
+
+        copy[ind] = chat
+        chats.value = copy
     }
 
     fun find(chatId: String): Chat? {

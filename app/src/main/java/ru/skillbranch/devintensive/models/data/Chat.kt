@@ -34,10 +34,10 @@ data class Chat(
 
     fun isSingle(): Boolean = members.size == 1
 
-    enum class ChatType{
-        SINGLE,
-        GROUP,
-        ARCHIVE
+    enum class ChatType(val intValue:Int){
+        SINGLE(1),
+        GROUP(2),
+        ARCHIVE(0);
     }
 }
 

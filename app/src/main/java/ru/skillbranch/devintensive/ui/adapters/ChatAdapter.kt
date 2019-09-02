@@ -7,22 +7,33 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.item_chat_group.*
 import kotlinx.android.synthetic.main.item_chat_single.*
 import ru.skillbranch.devintensive.R
+import ru.skillbranch.devintensive.models.data.Chat
 import ru.skillbranch.devintensive.models.data.ChatItem
 
-class ChatAdapter(val listener: (ChatItem) -> Unit) : RecyclerView.Adapter<ChatAdapter.SingleViewHolder>() {
+class ChatAdapter(val listener: (ChatItem) -> Unit) : RecyclerView.Adapter<ChatAdapter.ChatItemViewHolder>() {
     var items : List<ChatItem> = listOf()
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleViewHolder {
+
+    override fun getItemViewType(position: Int): Int = items[position].chatType.intValue
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatItemViewHolder {
         val inflator = LayoutInflater.from(parent.context)
         Log.d("M_ChatAdapter","onCreateViewHolder")
-        return SingleViewHolder(inflator.inflate(R.layout.item_chat_single, parent, false))
+        //return SingleViewHolder(inflator.inflate(R.layout.item_chat_single, parent, false))
+        return when(viewType){
+            Chat.ChatType.SINGLE.intValue -> SingleViewHolder(inflator.inflate(R.layout.item_chat_single, parent, false))
+            Chat.ChatType.GROUP.intValue -> GroupViewHolder(inflator.inflate(R.layout.item_chat_group, parent, false))
+            else -> SingleViewHolder(inflator.inflate(R.layout.item_chat_single, parent, false))
+        }
     }
 
     override fun getItemCount(): Int = items.size
 
-    override fun onBindViewHolder(holder: SingleViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ChatItemViewHolder, position: Int) {
         holder.bind(items[position], listener)
         Log.d("M_ChatAdapter","onBindViewHolder")
     }
@@ -47,20 +58,25 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) : RecyclerView.Adapter<ChatA
         diffResult.dispatchUpdatesTo(this)
     }
 
-    inner class SingleViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer, ItemTouchViewHolder {
-        override fun onItemSelected() {
-            itemView.setBackgroundColor(Color.LTGRAY)
-        }
+    abstract inner class ChatItemViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer, ItemTouchViewHolder {
+        override fun onItemSelected() = itemView.setBackgroundColor(Color.LTGRAY)
 
-        override fun onItemCleared() {
-            itemView.setBackgroundColor(Color.WHITE)
-        }
+        override fun onItemCleared() = itemView.setBackgroundColor(Color.WHITE)
 
-        fun bind(item:ChatItem, listener: (ChatItem) -> Unit){
+        abstract fun bind(item:ChatItem, listener: (ChatItem) -> Unit)
+    }
+
+    inner class SingleViewHolder(containerView: View) : ChatItemViewHolder(containerView), LayoutContainer{
+        override fun bind(item:ChatItem, listener: (ChatItem) -> Unit){
             if (item.avatar==null) {
+                Glide.with(itemView)
+                    .clear(iv_avatar_single)
                 iv_avatar_single.setText(item.initials)
             } else {
-                iv_avatar_single.setText("AVA")
+                Glide.with(itemView)
+                    .load(item.avatar)
+                    .into(iv_avatar_single)
+                iv_avatar_single.setText("")
             }
 
             sv_indicator.visibility = if (item.isOnline) View.VISIBLE else View.GONE
@@ -77,6 +93,34 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) : RecyclerView.Adapter<ChatA
 
             tv_title_single.text = item.title
             tv_message_single.text = item.shortDescription
+            itemView.setOnClickListener{
+                listener.invoke(item)
+            }
+        }
+    }
+
+    inner class GroupViewHolder(containerView: View) : ChatItemViewHolder(containerView), LayoutContainer{
+        override fun bind(item: ChatItem, listener: (ChatItem) -> Unit) {
+            iv_avatar_group.setText(item.initials)
+            //sv_indicator.visibility = if (item.isOnline) View.VISIBLE else View.GONE
+
+            with(tv_date_group){
+                visibility = if (item.lastMessageDate!=null) View.VISIBLE else View.GONE
+                text = item.lastMessageDate
+            }
+
+            with(tv_counter_group){
+                visibility = if (item.messageCount>0) View.VISIBLE else View.GONE
+                text = item.messageCount.toString()
+            }
+
+            tv_title_group.text = item.title
+            tv_message_group.text = item.shortDescription
+
+            with(tv_message_author){
+                visibility = if (item.messageCount>0) View.VISIBLE else View.GONE
+                text = item.author
+            }
             itemView.setOnClickListener{
                 listener.invoke(item)
             }

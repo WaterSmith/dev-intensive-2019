@@ -27,7 +27,7 @@ fun Chat.toChatItem(): ChatItem {
             unreadableMessageCount(),
             lastMessageDate()?.shortFormat(),
             false,
-            ru.skillbranch.devintensive.models.data.Chat.ChatType.GROUP,
+            Chat.ChatType.GROUP,
             lastMessageShort().second
         )
     }
