@@ -66,7 +66,7 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) : RecyclerView.Adapter<ChatA
         abstract fun bind(item:ChatItem, listener: (ChatItem) -> Unit)
     }
 
-    inner class SingleViewHolder(containerView: View) : ChatItemViewHolder(containerView), LayoutContainer{
+    inner class SingleViewHolder(override val containerView: View) : ChatItemViewHolder(containerView){
         override fun bind(item:ChatItem, listener: (ChatItem) -> Unit){
             if (item.avatar==null) {
                 Glide.with(itemView)
@@ -101,7 +101,7 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) : RecyclerView.Adapter<ChatA
         }
     }
 
-    inner class GroupViewHolder(containerView: View) : ChatItemViewHolder(containerView), LayoutContainer{
+    inner class GroupViewHolder(override val containerView: View) : ChatItemViewHolder(containerView){
         override fun bind(item: ChatItem, listener: (ChatItem) -> Unit) {
             iv_avatar_group.setText(item.title[0].toString())
             //sv_indicator.visibility = if (item.isOnline) View.VISIBLE else View.GONE

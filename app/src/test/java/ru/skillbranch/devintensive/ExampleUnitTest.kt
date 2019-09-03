@@ -4,7 +4,7 @@ import org.junit.Test
 
 import org.junit.Assert.*
 import ru.skillbranch.devintensive.extensions.*
-import ru.skillbranch.devintensive.models.*
+import ru.skillbranch.devintensive.models.data.Chat
 import ru.skillbranch.devintensive.models.data.User
 import ru.skillbranch.devintensive.utils.Utils
 import java.util.*
@@ -86,8 +86,8 @@ class ExampleUnitTest {
     @Test
     fun test_message_abstract_factory(){
         val user = User("Водаков Сергей")
-        val txtMessage = BaseMessage.makeMessage(user, Chat("0"), payload = "a ny text message", type = "text", date = Date().add(3, TimeUnits.DAY))
-        val imgMessage = BaseMessage.makeMessage(user, Chat("0"), payload = "any image url", type = "image")
+        val txtMessage = BaseMessageAbstractFactory.makeMessage(user, Chat("0","Test chat"), payload = "any text message", type = "text", date = Date().add(3, TimeUnits.DAY))
+        val imgMessage = BaseMessageAbstractFactory.makeMessage(user, Chat("0", "Test chat"), payload = "any image url", type = "image")
 
         println(txtMessage.formatMessage())
         println(imgMessage.formatMessage())
