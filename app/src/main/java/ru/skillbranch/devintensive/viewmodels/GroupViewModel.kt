@@ -59,7 +59,7 @@ class GroupViewModel: ViewModel() {
     }
 
     fun handleSearchQuery(queryStr: String?) {
-        query.value = queryStr
+        query.value = queryStr.orEmpty()
     }
 
     fun handleCreateGroup() {
