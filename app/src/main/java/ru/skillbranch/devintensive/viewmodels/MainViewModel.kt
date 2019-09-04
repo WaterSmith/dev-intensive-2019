@@ -22,16 +22,17 @@ class MainViewModel : ViewModel() {
         return chats
     }
 
-    fun addToArchive(chatId: String) {
+    private fun setArchiveStatus(chatId: String, arhivedStatus: Boolean ){
         val chat = chatRepository.find(chatId)
         chat ?: return
-        chatRepository.update(chat.copy(isArchived = true))
-
+        chatRepository.update(chat.copy(isArchived = arhivedStatus))
     }
-    fun restoreFromArchive(chatId: String) {
-        val chat = chatRepository.find(chatId)
-        chat ?: return
-        chatRepository.update(chat.copy(isArchived = false))
 
+    fun addToArchive(chatId: String) {
+        setArchiveStatus(chatId, true)
+    }
+
+    fun restoreFromArchive(chatId: String) {
+        setArchiveStatus(chatId, false)
     }
 }

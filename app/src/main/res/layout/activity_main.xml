@@ -25,7 +25,7 @@
             android:layout_marginTop="?attr/actionBarSize"
             tools:listitem="@layout/item_chat_single"/>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_chat_list"
+            android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
