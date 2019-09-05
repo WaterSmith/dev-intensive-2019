@@ -1,11 +1,8 @@
 package ru.skillbranch.devintensive.ui.main
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.Menu
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
@@ -16,14 +13,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.skillbranch.devintensive.R
+import ru.skillbranch.devintensive.extensions.applyStyle
 import ru.skillbranch.devintensive.models.data.ChatType
+import ru.skillbranch.devintensive.ui.BaseActivity
 import ru.skillbranch.devintensive.ui.adapters.ChatAdapter
 import ru.skillbranch.devintensive.ui.adapters.ChatItemTouchHelperCallback
 import ru.skillbranch.devintensive.ui.archive.ArchiveActivity
 import ru.skillbranch.devintensive.ui.group.GroupActivity
 import ru.skillbranch.devintensive.viewmodels.MainViewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private lateinit var chatAdapter: ChatAdapter
     private lateinit var viewModel: MainViewModel
@@ -48,10 +47,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //delegate.setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         initToolbar()
         initViews()
         initViewModel()
@@ -67,7 +64,7 @@ class MainActivity : AppCompatActivity() {
                 intent = Intent(this, ArchiveActivity::class.java)
                 startActivity(intent)
             } else {
-                Snackbar.make(rv_chat_list, "Click on ${it.title}", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(rv_chat_list, "Click on ${it.title}", Snackbar.LENGTH_LONG).applyStyle().show()
             }
         }
 
@@ -77,22 +74,12 @@ class MainActivity : AppCompatActivity() {
             viewModel.addToArchive(itemId)
             chatAdapter.notifyItemChanged(0)
 
-            val colorAccent = TypedValue()
-            val backgroundColor = TypedValue()
-            val textColor = TypedValue()
-
-            theme.resolveAttribute(R.attr.colorAccent, colorAccent, true)
-            theme.resolveAttribute(R.attr.colorItemTextTitle, backgroundColor, true)
-            theme.resolveAttribute(R.attr.colorItemBackground, textColor, true)
-
             Snackbar.make(rv_chat_list, "Вы точно хотите добавить ${it.title} в архив?", Snackbar.LENGTH_LONG)
                 .setAction(getString(R.string.snackbar_action_no)){
                     viewModel.restoreFromArchive(itemId)
                     chatAdapter.notifyItemChanged(0)
-                }.setActionTextColor(colorAccent.data).apply {
-                    this.view.setBackgroundColor(backgroundColor.data)
-                    this.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text).setTextColor(textColor.data)
-                }.show()
+                }.applyStyle()
+                .show()
         }
 
         val itemTouchHelper = ItemTouchHelper(touchCallback)

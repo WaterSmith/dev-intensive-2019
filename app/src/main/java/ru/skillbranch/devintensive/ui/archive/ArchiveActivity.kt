@@ -1,10 +1,8 @@
 package ru.skillbranch.devintensive.ui.archive
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -15,11 +13,13 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_archive.*
 import kotlinx.android.synthetic.main.activity_main.toolbar
 import ru.skillbranch.devintensive.R
+import ru.skillbranch.devintensive.extensions.applyStyle
+import ru.skillbranch.devintensive.ui.BaseActivity
 import ru.skillbranch.devintensive.ui.adapters.ChatAdapter
 import ru.skillbranch.devintensive.ui.adapters.ChatItemTouchHelperCallback
 import ru.skillbranch.devintensive.viewmodels.ArchiveViewModel
 
-class ArchiveActivity : AppCompatActivity() {
+class ArchiveActivity : BaseActivity() {
     private lateinit var archiveAdapter: ChatAdapter
     private lateinit var viewModel: ArchiveViewModel
 
@@ -52,7 +52,6 @@ class ArchiveActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_archive)
         initToolbar()
@@ -67,7 +66,7 @@ class ArchiveActivity : AppCompatActivity() {
 
     private fun initViews() {
         archiveAdapter = ChatAdapter{
-            Snackbar.make(rv_archive_list, "Click on ${it.title}", Snackbar.LENGTH_LONG).show()
+            Snackbar.make(rv_archive_list, "Click on ${it.title}", Snackbar.LENGTH_LONG).applyStyle().show()
         }
 
         val divider = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
@@ -79,7 +78,7 @@ class ArchiveActivity : AppCompatActivity() {
                 .setAction(getString(R.string.snackbar_action_no)){
                     viewModel.addToArchive(itemId)
                     archiveAdapter.notifyItemChanged(0)
-                }.show()
+                }.applyStyle().show()
         }
 
         val itemTouchHelper = ItemTouchHelper(touchCallback)
