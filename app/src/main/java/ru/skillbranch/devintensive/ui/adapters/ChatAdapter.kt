@@ -130,27 +130,21 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) : RecyclerView.Adapter<ChatA
     }
     inner class ArhiveViewHolder(override val containerView: View): ChatItemViewHolder(containerView){
         override fun bind(item: ChatItem, listener: (ChatItem) -> Unit) {
-            val lastArchiveMessage = ChatRepository.lastArchiveMessage.value
-            val totalUnreadMessageCount = ChatRepository.unreadableArchiveMessageCount.value?:0
             with(tv_date_archive){
-                visibility = if (lastArchiveMessage!=null) View.VISIBLE else View.GONE
-                text = lastArchiveMessage?.date?.shortFormat()
+                visibility = if (item.lastMessageDate!=null) View.VISIBLE else View.GONE
+                text = item.lastMessageDate
             }
 
             with(tv_counter_archive){
-                visibility = if (totalUnreadMessageCount>0) View.VISIBLE else View.GONE
-                text = totalUnreadMessageCount.toString()
+                visibility = if (item.messageCount>0) View.VISIBLE else View.GONE
+                text = item.messageCount.toString()
             }
 
-            tv_message_archive.text = when(lastArchiveMessage){
-                is TextMessage -> lastArchiveMessage.text
-                is ImageMessage -> lastArchiveMessage.image
-                else -> ""
-            }
+            tv_message_archive.text = item.shortDescription
 
             with(tv_message_author_archive){
-                visibility = if (totalUnreadMessageCount>0) View.VISIBLE else View.GONE
-                text = lastArchiveMessage?.from?.firstName
+                visibility = if (item.messageCount>0) View.VISIBLE else View.GONE
+                text = item.author
             }
             itemView.setOnClickListener{
                 listener.invoke(item)
