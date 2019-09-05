@@ -1,6 +1,7 @@
 package ru.skillbranch.devintensive.ui.adapters
 
 import android.graphics.Color
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,8 +60,19 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) : RecyclerView.Adapter<ChatA
     }
 
     abstract inner class TouchableChatItemViewHolder(override val containerView: View) : ChatItemViewHolder(containerView), ItemTouchViewHolder {
-        override fun onItemSelected() = itemView.setBackgroundColor(Color.LTGRAY)
-        override fun onItemCleared() = itemView.setBackgroundColor(Color.WHITE)
+
+
+
+        override fun onItemSelected() {
+            var colorBackground = TypedValue()
+            itemView.context.theme.resolveAttribute(R.attr.colorItemSelectedBackground, colorBackground, true)
+            itemView.setBackgroundColor(colorBackground.data)
+        }
+        override fun onItemCleared() {
+            var colorBackground = TypedValue()
+            itemView.context.theme.resolveAttribute(R.attr.colorItemBackground, colorBackground, true)
+            itemView.setBackgroundColor(colorBackground.data)
+        }
     }
 
     inner class SingleViewHolder(override val containerView: View) : TouchableChatItemViewHolder(containerView){

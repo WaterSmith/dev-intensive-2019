@@ -3,7 +3,9 @@ package ru.skillbranch.devintensive.ui.main
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.Menu
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
@@ -74,10 +76,22 @@ class MainActivity : AppCompatActivity() {
             val itemId = it.id
             viewModel.addToArchive(itemId)
             chatAdapter.notifyItemChanged(0)
+
+            val colorAccent = TypedValue()
+            val backgroundColor = TypedValue()
+            val textColor = TypedValue()
+
+            theme.resolveAttribute(R.attr.colorAccent, colorAccent, true)
+            theme.resolveAttribute(R.attr.colorItemTextTitle, backgroundColor, true)
+            theme.resolveAttribute(R.attr.colorItemBackground, textColor, true)
+
             Snackbar.make(rv_chat_list, "Вы точно хотите добавить ${it.title} в архив?", Snackbar.LENGTH_LONG)
                 .setAction(getString(R.string.snackbar_action_no)){
                     viewModel.restoreFromArchive(itemId)
                     chatAdapter.notifyItemChanged(0)
+                }.setActionTextColor(colorAccent.data).apply {
+                    this.view.setBackgroundColor(backgroundColor.data)
+                    this.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text).setTextColor(textColor.data)
                 }.show()
         }
 

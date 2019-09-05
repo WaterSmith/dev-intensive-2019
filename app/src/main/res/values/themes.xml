@@ -21,6 +21,8 @@
         <item name="colorCounterBackground">@color/color_indicator</item>
         <item name="colorDoneIcon">@color/color_primary</item>
         <item name="colorAppBar">@color/color_primary</item>
+        <item name="colorItemBackside">@color/color_primary_dark</item>
+        <item name="colorItemSelectedBackground">@color/color_gray</item>
 
         <item name="android:windowActivityTransitions">true</item>
         <item name="android:windowAnimationStyle">@style/ActivityTransition</item>

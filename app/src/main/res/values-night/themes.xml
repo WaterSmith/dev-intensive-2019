@@ -16,6 +16,8 @@
         <item name="colorCounterBackground">@color/color_indicator_night</item>
         <item name="colorDoneIcon">@color/color_primary_dark_night</item>
         <item name="colorAppBar">@color/color_primary_dark</item>
+        <item name="colorItemBackside">@color/color_primary_dark_night</item>
+        <item name="colorItemSelectedBackground">@color/color_divider_light</item>
 
         <item name="colorAccentedSurface">@color/color_divider_light</item>
         <item name="colorIcon">@android:color/white</item>
