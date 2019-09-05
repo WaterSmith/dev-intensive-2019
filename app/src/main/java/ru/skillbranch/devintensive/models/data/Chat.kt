@@ -32,7 +32,7 @@ data class Chat(
     fun lastMessageShort(): Pair<String, String?> {
         return when (val lastMessage = getLastMessage()) {
             is TextMessage -> Pair(lastMessage.text ?: "", lastMessage.from.firstName)
-            is ImageMessage -> Pair(lastMessage.image, lastMessage.from.firstName)
+            is ImageMessage -> Pair("${lastMessage.from.firstName} - отправил фото", lastMessage.from.firstName)
             else -> Pair("", null)
         }
     }
