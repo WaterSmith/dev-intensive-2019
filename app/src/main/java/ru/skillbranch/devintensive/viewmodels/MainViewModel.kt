@@ -20,7 +20,6 @@ class MainViewModel : ViewModel() {
             .sortedBy { it.id.toInt() }
     }
 
-
     fun getChatData() : LiveData<List<ChatItem>> {
         val result = MediatorLiveData<List<ChatItem>>()
         val filterF = {

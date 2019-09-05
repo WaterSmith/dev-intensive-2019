@@ -2,6 +2,7 @@ package ru.skillbranch.devintensive.extensions
 
 import ru.skillbranch.devintensive.models.data.Chat
 import ru.skillbranch.devintensive.models.data.ChatItem
+import ru.skillbranch.devintensive.models.data.ChatType
 import ru.skillbranch.devintensive.utils.Utils
 
 fun Chat.toChatItem(): ChatItem {
@@ -27,7 +28,7 @@ fun Chat.toChatItem(): ChatItem {
             unreadableMessageCount(),
             lastMessageDate()?.shortFormat(),
             false,
-            Chat.ChatType.GROUP,
+            if(id=="-1") ChatType.ARCHIVE else ChatType.GROUP,
             lastMessageShort().second
         )
     }

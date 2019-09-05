@@ -7,5 +7,7 @@
     <string name="profile_hint_last_name">Фамилия</string>
     <string name="profile_hint_first_name">Имя</string>
     <string name="menu_search_title">Поиск</string>
-    <string name="snackbar_action_no">Нет</string>
+    <string name="snackbar_action_no">ОТМЕНА</string>
+    <string name="archive_icon_description">archive icon</string>
+    <string name="archive_chat_title">Архив чатов</string>
 </resources>

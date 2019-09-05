@@ -7,51 +7,53 @@
         android:layout_height="@dimen/item_size"
         android:padding="@dimen/spacing_normal_16"
         android:background="@android:color/white">
-    <ru.skillbranch.devintensive.ui.custom.CircleImageView
-            android:id="@+id/iv_avatar_group"
+    <ImageView
+            android:id="@+id/iv_avatar_archive"
             android:layout_width="@dimen/avatar_item_size"
             android:layout_height="@dimen/avatar_item_size"
             android:layout_alignParentStart="true"
-            app:srcCompat="?attr/colorAntiAccent"
-            app:cv_borderWidth="0dp"
-            android:layout_marginRight="@dimen/spacing_normal_16"
-            android:layout_alignParentLeft="true"/>
+            app:srcCompat="@drawable/ic_arc"
+            android:padding="@dimen/spacing_small_8"
+            android:background="@drawable/avatar_archive_background"
+            android:layout_marginEnd="@dimen/spacing_normal_16"
+            android:layout_alignParentLeft="true"
+            android:contentDescription="@string/archive_icon_description" />
     <TextView
-        android:id="@+id/tv_title_group"
+        android:id="@+id/tv_title_archive"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text = "Chat title"
+            android:text = "@string/archive_chat_title"
             android:textColor="@color/color_primary"
             android:fontFamily="sans-serif-medium"
             android:textSize="14sp"
-            android:layout_toEndOf="@id/iv_avatar_group"
-            android:layout_toStartOf="@id/tv_date_group"
+            android:layout_toEndOf="@id/iv_avatar_archive"
+            android:layout_toStartOf="@id/tv_date_archive"
             android:layout_marginRight="@dimen/spacing_normal_16"
             android:maxLines="1"/>
     <TextView
-            android:id="@+id/tv_message_author"
+            android:id="@+id/tv_message_author_archive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text = "John_Doe"
             android:textColor="@color/color_primary"
             android:textSize="14sp"
-            android:layout_toRightOf="@id/iv_avatar_group"
+            android:layout_toRightOf="@id/iv_avatar_archive"
             android:layout_marginRight="@dimen/spacing_tiny_4"
-            android:layout_below="@id/tv_title_group"/>
+            android:layout_below="@id/tv_title_archive"/>
     <TextView
-            android:id="@+id/tv_message_group"
+            android:id="@+id/tv_message_archive"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text = "Когда я проходил интенсив"
+            android:text = "Когда я проходил интенсив"
             android:textColor="@color/color_gray_dark"
             android:textSize="14sp"
-            android:layout_toRightOf="@id/tv_message_author"
-            android:layout_toLeftOf="@id/tv_counter_group"
+            android:layout_toRightOf="@id/tv_message_author_archive"
+            android:layout_toLeftOf="@id/tv_counter_archive"
             android:layout_marginRight="@dimen/spacing_normal_16"
-            android:layout_below="@id/tv_title_group"
+            android:layout_below="@id/tv_title_archive"
             />
     <TextView
-            android:id="@+id/tv_date_group"
+            android:id="@+id/tv_date_archive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="10sp"
@@ -60,7 +62,7 @@
             android:textColor="@color/color_gray_dark"
             tools:text="10:03"/>
     <TextView
-            android:id="@+id/tv_counter_group"
+            android:id="@+id/tv_counter_archive"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/counter_size"
             android:minWidth="@dimen/counter_size"

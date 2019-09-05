@@ -10,6 +10,6 @@ data class ChatItem (
     val messageCount: Int = 0,
     val lastMessageDate: String?,
     val isOnline: Boolean = false,
-    val chatType : Chat.ChatType = Chat.ChatType.SINGLE,
+    val chatType : ChatType = ChatType.SINGLE,
     var author :String? = null
 )

@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        delegate.setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        delegate.setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         initToolbar()
         initViews()
         initViewModel()
@@ -66,9 +66,12 @@ class MainActivity : AppCompatActivity() {
         val touchCallback = ChatItemTouchHelperCallback(chatAdapter) {
             val itemId = it.id
             viewModel.addToArchive(itemId)
+            chatAdapter.notifyItemChanged(0)
             Snackbar.make(rv_chat_list, "Вы точно хотите добавить ${it.title} в архив?", Snackbar.LENGTH_LONG)
-                .setAction(getString(R.string.snackbar_action_no)){viewModel.restoreFromArchive(itemId)}
-                .show()
+                .setAction(getString(R.string.snackbar_action_no)){
+                    viewModel.restoreFromArchive(itemId)
+                    chatAdapter.notifyItemChanged(0)
+                }.show()
         }
 
         val itemTouchHelper = ItemTouchHelper(touchCallback)
