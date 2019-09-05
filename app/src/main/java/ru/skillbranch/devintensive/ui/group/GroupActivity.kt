@@ -47,16 +47,11 @@ class GroupActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return if(item?.itemId == android.R.id.home) {
-            closeActivity()
+            finish()
             true
         } else {
             super.onOptionsItemSelected(item)
         }
-    }
-
-    private fun closeActivity() {
-        finish()
-        //overridePendingTransition(R.anim.idle, R.anim.bottom_down)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,7 +87,7 @@ class GroupActivity : AppCompatActivity() {
         }
         fab.setOnClickListener {
             viewModel.handleCreateGroup()
-            closeActivity()
+            finish()
         }
     }
 
