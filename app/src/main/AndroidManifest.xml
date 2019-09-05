@@ -12,7 +12,7 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/SplashTheme">
-        <activity android:name=".ui.group.ArchiveActivity"></activity>
+        <activity android:name=".ui.archive.ArchiveActivity"></activity>
         <activity android:name=".ui.group.GroupActivity" />
         <activity android:name=".ui.main.MainActivity">
             <intent-filter>

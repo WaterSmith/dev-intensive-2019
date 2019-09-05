@@ -6,7 +6,7 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/item_size"
         android:padding="@dimen/spacing_normal_16"
-        android:background="@android:color/white">
+        android:background="?attr/colorItemBackground">
     <ImageView
             android:id="@+id/iv_avatar_archive"
             android:layout_width="@dimen/avatar_item_size"
@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text = "@string/archive_chat_title"
-            android:textColor="@color/color_primary"
+            android:textColor="?attr/colorItemTextTitle"
             android:fontFamily="sans-serif-medium"
             android:textSize="14sp"
             android:layout_toEndOf="@id/iv_avatar_archive"
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text = "John_Doe"
-            android:textColor="@color/color_primary"
+            android:textColor="?attr/colorItemTextTitle"
             android:textSize="14sp"
             android:layout_toRightOf="@id/iv_avatar_archive"
             android:layout_marginRight="@dimen/spacing_tiny_4"
@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text = "Когда я проходил интенсив"
-            android:textColor="@color/color_gray_dark"
+            android:textColor="?attr/colorItemTextMessage"
             android:textSize="14sp"
             android:layout_toRightOf="@id/tv_message_author_archive"
             android:layout_toLeftOf="@id/tv_counter_archive"
@@ -59,7 +59,7 @@
             android:textSize="10sp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:textColor="@color/color_gray_dark"
+            android:textColor="?attr/colorItemTextMessage"
             tools:text="10:03"/>
     <TextView
             android:id="@+id/tv_counter_archive"

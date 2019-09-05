@@ -13,6 +13,15 @@
         <item name="colorAccentedSurface">@color/color_primary_light</item>
         <item name="colorIcon">@color/color_gray</item>
         <item name="colorDivider">@color/color_divider_dark</item>
+
+        <item name="colorItemBackground">@color/color_item_background</item>
+        <item name="colorOnlineIndicator">@color/color_green</item>
+        <item name="colorItemTextTitle">@color/color_item_title</item>
+        <item name="colorItemTextMessage">@color/color_item_message</item>
+        <item name="colorCounterBackground">@color/color_indicator</item>
+        <item name="colorDoneIcon">@color/color_primary</item>
+        <item name="colorAppBar">@color/color_primary</item>
+
         <item name="android:windowActivityTransitions">true</item>
         <item name="android:windowAnimationStyle">@style/ActivityTransition</item>
     </style>

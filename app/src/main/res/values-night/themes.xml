@@ -9,6 +9,14 @@
         <item name="colorAccent">@color/color_accent_night</item>
         <item name="colorAntiAccent">@color/color_accent</item>
 
+        <item name="colorItemBackground">@color/color_item_background_night</item>
+        <item name="colorOnlineIndicator">@color/color_accent_night</item>
+        <item name="colorItemTextTitle">@color/color_item_title_night</item>
+        <item name="colorItemTextMessage">@color/color_item_message_night</item>
+        <item name="colorCounterBackground">@color/color_indicator_night</item>
+        <item name="colorDoneIcon">@color/color_primary_dark_night</item>
+        <item name="colorAppBar">@color/color_primary_dark</item>
+
         <item name="colorAccentedSurface">@color/color_divider_light</item>
         <item name="colorIcon">@android:color/white</item>
         <item name="colorDivider">@color/color_divider_dark</item>

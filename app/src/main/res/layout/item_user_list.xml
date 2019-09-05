@@ -6,7 +6,7 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/item_size"
         android:padding="@dimen/spacing_normal_16"
-        android:background="@android:color/white">
+        android:background="?attr/colorItemBackground">
     <ImageView
             android:id="@+id/iv_selected"
             android:layout_width="@dimen/icon_size"
@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text = "Jon Dou"
-            android:textColor="@color/color_primary"
+            android:textColor="?attr/colorItemTextTitle"
             android:fontFamily="sans-serif-medium"
             android:textSize="14sp"
             android:layout_toEndOf="@id/iv_avatar_user"
@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14sp"
-            android:textColor="@color/color_primary"
+            android:textColor="?attr/colorItemTextMessage"
             android:layout_below="@id/tv_user_name"
             android:layout_toRightOf="@id/iv_avatar_user"
             android:layout_marginLeft="@dimen/spacing_normal_16"
